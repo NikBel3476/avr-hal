@@ -72,6 +72,19 @@ avr_hal_generic::impl_port_traditional! {
     }
 }
 
+#[cfg(any(feature = "atmega128rfa1"))]
+avr_hal_generic::impl_port_traditional! {
+    enum Ports {
+        A: crate::pac::PORTA = [0, 1, 2, 3, 4, 5, 6, 7],
+        B: crate::pac::PORTB = [0, 1, 2, 3, 4, 5, 6, 7],
+        C: crate::pac::PORTC = [0, 1, 2, 3, 4, 5, 6, 7],
+        D: crate::pac::PORTD = [0, 1, 2, 3, 4, 5, 6, 7],
+        E: crate::pac::PORTE = [0, 1, 2, 3, 4, 5, 6, 7],
+        F: crate::pac::PORTF = [0, 1, 2, 3, 4, 5, 6, 7],
+        G: crate::pac::PORTG = [0, 1, 2, 3, 4, 5],
+    }
+}
+
 #[cfg(any(feature = "atmega1280", feature = "atmega2560"))]
 avr_hal_generic::impl_port_traditional! {
     enum Ports {

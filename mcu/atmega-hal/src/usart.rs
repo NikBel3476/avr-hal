@@ -87,6 +87,7 @@ avr_hal_generic::impl_usart_traditional! {
 #[cfg(any(
     feature = "atmega32u4",
     feature = "atmega128a",
+    feature = "atmega128rfa1",
     feature = "atmega1280",
     feature = "atmega2560",
     feature = "atmega1284p",
@@ -113,7 +114,12 @@ avr_hal_generic::impl_usart_traditional! {
     tx: port::PD3,
 }
 
-#[cfg(any(feature = "atmega128A", feature = "atmega1280", feature = "atmega2560"))]
+#[cfg(any(
+    feature = "atmega128A",
+    feature = "atmega128rfa1",
+    feature = "atmega1280",
+    feature = "atmega2560")
+)]
 pub type Usart0<CLOCK> = Usart<
     crate::pac::USART0,
     port::Pin<port::mode::Input, port::PE0>,

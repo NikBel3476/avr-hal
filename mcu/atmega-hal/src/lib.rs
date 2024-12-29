@@ -15,6 +15,7 @@
 #![cfg_attr(feature = "atmega2560", doc = "**ATmega2560**.")]
 #![cfg_attr(feature = "atmega128a", doc = "**ATmega128A**.")]
 #![cfg_attr(feature = "atmega1280", doc = "**ATmega1280**.")]
+#![cfg_attr(feature = "atmega128rfa1", doc = "**ATmega128rfa1**.")]
 #![cfg_attr(feature = "atmega1284p", doc = "**ATmega1284P**.")]
 #![cfg_attr(feature = "atmega8", doc = "**ATmega8**.")]
 //! This means that only items which are available for this MCU are visible.  If you are using
@@ -41,6 +42,7 @@ compile_error!(
     * atmega32u4
     * atmega128a
     * atmega1280
+    * atmega128rfa1
     * atmega2560
     * atmega1284p
     * atmega8
@@ -51,6 +53,10 @@ compile_error!(
 ///
 #[cfg(feature = "atmega1280")]
 pub use avr_device::atmega1280 as pac;
+/// Reexport of `atmega128rfa1` from `avr-device`
+///
+#[cfg(feature = "atmega128rfa1")]
+pub use avr_device::atmega128rfa1 as pac;
 /// Reexport of `atmega1284p` from `avr-device`
 ///
 #[cfg(feature = "atmega1284p")]
@@ -176,7 +182,7 @@ macro_rules! pins {
     };
 }
 
-#[cfg(any(feature = "atmega128a"))]
+#[cfg(any(feature = "atmega128a", feature = "atmega128rfa1"))]
 #[macro_export]
 macro_rules! pins {
     ($p:expr) => {
