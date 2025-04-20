@@ -251,7 +251,7 @@ avr_hal_generic::impl_simple_pwm! {
     }
 }
 
-#[cfg(any(feature = "atmega1280", feature = "atmega2560"))]
+#[cfg(any(feature = "atmega1280", feature = "atmega2560", feature = "atmega128rfa1"))]
 avr_hal_generic::impl_simple_pwm! {
     /// Use `TC0` for PWM (pins `PB7`, `PG5`)
     ///
@@ -299,7 +299,7 @@ avr_hal_generic::impl_simple_pwm! {
     }
 }
 
-#[cfg(any(feature = "atmega1280", feature = "atmega2560"))]
+#[cfg(any(feature = "atmega1280", feature = "atmega2560", feature = "atmega128rfa1"))]
 avr_hal_generic::impl_simple_pwm! {
     /// Use `TC1` for PWM (pins `PB5`, `PB6`, `PB7`)
     ///
@@ -410,7 +410,7 @@ avr_hal_generic::impl_simple_pwm! {
     }
 }
 
-#[cfg(any(feature = "atmega1280", feature = "atmega2560"))]
+#[cfg(any(feature = "atmega1280", feature = "atmega2560", feature = "atmega128rfa1"))]
 avr_hal_generic::impl_simple_pwm! {
     /// Use `TC3` for PWM (pins `PE3`, `PE4`, `PE5`)
     ///
@@ -595,6 +595,49 @@ avr_hal_generic::impl_simple_pwm! {
                 },
             },
 
+        },
+    }
+}
+
+#[cfg(any(feature = "atmega128rfa1"))]
+avr_hal_generic::impl_simple_pwm! {
+    /// Use `TC2` for PWM (pins `PB4`)
+    ///
+    /// # Example
+    /// ```
+    /// let mut timer2 = Timer2Pwm::new(dp.TC2, Prescaler::Prescale64);
+
+    /// let mut pb4 = pins.pb4.into_output().into_pwm(&mut timer2);
+    
+	/// pb4.set_duty(128);
+    /// pb4.enable();
+    /// ```
+
+    pub struct Timer2Pwm {
+        timer: crate::pac::TC2,
+        init: |tim, prescaler| {
+            tim.tccr2a.modify(|_r, w| w.wgm2().bits(0b01));
+            tim.tccr2b.modify(|_r, w| {
+                w.wgm22().clear_bit();
+
+                match prescaler {
+                    Prescaler::Direct => w.cs2().direct(),
+                    Prescaler::Prescale8 => w.cs2().prescale_8(),
+                    Prescaler::Prescale64 => w.cs2().prescale_64(),
+                    Prescaler::Prescale256 => w.cs2().prescale_256(),
+                    Prescaler::Prescale1024 => w.cs2().prescale_1024(),
+                }
+            });
+        },
+        pins: {
+            PB4: {
+                ocr: ocr2a,
+                into_pwm: |tim| if enable {
+                    tim.tccr2a.modify(|_r, w| w.com2a().match_clear());
+                } else {
+                    tim.tccr2a.modify(|_r, w| w.com2a().disconnected());
+                },
+            },
         },
     }
 }

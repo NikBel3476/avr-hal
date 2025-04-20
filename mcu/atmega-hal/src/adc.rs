@@ -102,6 +102,7 @@ pub mod channel {
             feature = "atmega328pb",
             feature = "atmega48p",
             feature = "atmega128a",
+            feature = "atmega128rfa1",
             feature = "atmega1284p",
             feature = "atmega8",
             feature = "atmega88p"
@@ -117,6 +118,7 @@ pub mod channel {
             feature = "atmega328pb",
             feature = "atmega48p",
             feature = "atmega128a",
+            feature = "atmega128rfa1",
             feature = "atmega1284p",
             feature = "atmega8",
             feature = "atmega88p"
@@ -135,6 +137,7 @@ pub mod channel {
         feature = "atmega32u4",
         feature = "atmega48p",
         feature = "atmega128a",
+        feature = "atmega128rfa1",
         feature = "atmega1284p",
         feature = "atmega8",
         feature = "atmega16",
@@ -152,6 +155,7 @@ pub mod channel {
         feature = "atmega32u4",
         feature = "atmega48p",
         feature = "atmega128a",
+        feature = "atmega128rfa1",
         feature = "atmega1284p",
         feature = "atmega8",
         feature = "atmega16",
@@ -263,7 +267,7 @@ avr_hal_generic::impl_adc! {
     },
 }
 
-#[cfg(feature = "atmega128a")]
+#[cfg(any(feature = "atmega128a", feature = "atmega128rfa1"))]
 avr_hal_generic::impl_adc! {
     hal: crate::Atmega,
     peripheral: crate::pac::ADC,

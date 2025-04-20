@@ -128,6 +128,23 @@
     # This board uses a generic serial interface id 0403:6001 which is too common for auto detection.
     error = "Not able to guess port"
 
+[atmega128rfa1]
+    name = "ATmega128RFA1 (ATmegaBOOT SparkFun bootlaoder)"
+
+    [atmega128rfa1.reset]
+    automatic = true
+
+    [atmega128rfa1.avrdude]
+    programmer = "arduino"
+    partno = "atmega128rfa1"
+    baudrate = 57600
+    do-chip-erase = false
+
+    [atmega128rfa1.usb-info]
+    error = "Not able to guess port"
+
+    # Info about bootloader can be found here: https://learn.sparkfun.com/tutorials/atmega128rfa1-dev-board-hookup-guide/all.pdf
+
 [diecimila]
     name = "Arduino Diecimila"
 

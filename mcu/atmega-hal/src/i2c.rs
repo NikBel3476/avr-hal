@@ -25,6 +25,7 @@ pub use avr_hal_generic::i2c::*;
 
 #[cfg(any(
     feature = "atmega128a",
+    feature = "atmega128rfa1",
     feature = "atmega1280",
     feature = "atmega2560",
     feature = "atmega32u4"
@@ -38,6 +39,7 @@ pub type I2c<CLOCK> = avr_hal_generic::i2c::I2c<
 >;
 #[cfg(any(
     feature = "atmega128a",
+    feature = "atmega128rfa1",
     feature = "atmega1280",
     feature = "atmega2560",
     feature = "atmega32u4"
